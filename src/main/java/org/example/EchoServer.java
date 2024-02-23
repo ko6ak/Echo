@@ -1,5 +1,8 @@
 package org.example;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.SelectionKey;
@@ -11,12 +14,14 @@ import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Tag(name = "EchoServer", description = "Возвращает отправленное сообщение")
 public class EchoServer {
     public static final Charset CHARSET = Charset.forName(System.getProperty("file.encoding"));
 
     public static final int PORT = 9000;
     private static final ExecutorService pool = Executors.newCachedThreadPool();
 
+    @Operation(summary = "Стартует сервер")
     public void start() throws IOException {
         try(ServerSocketChannel socket = ServerSocketChannel.open(); Selector selector = Selector.open()) {
             socket.configureBlocking(false);

@@ -1,5 +1,8 @@
 package org.example;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -8,6 +11,7 @@ import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 
+@Tag(name = "Task", description = "Задание для сервера, которое получает сообщение и отправляет ответ")
 public class Task implements Runnable {
     public static final int BUFFER_SIZE = 1024;
     public static final String STOP_WORD = "END";
@@ -20,6 +24,7 @@ public class Task implements Runnable {
         selector = Selector.open();
     }
 
+    @Operation(summary = "Описание задания")
     public void run() {
         ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
         boolean read = false, done = false;
